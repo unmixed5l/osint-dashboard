@@ -1,0 +1,6 @@
+name = "osint-proxy"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+# After the dashboard is live, lock the proxy to your Pages origin:
+# [vars]
+# ALLOWED_ORIGIN = "https://YOUR-USERNAME.github.io"
