@@ -28,12 +28,12 @@ dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.
 <div id="out"></div>
 </main>
 <script>
-const DEFAULT_API='https://osint-proxy.YOUR-SUBDOMAIN.workers.dev';
+const DEFAULT_API='https://osint-proxy.dustpan-unmixed5l.workers.dev';
 const $=s=>document.querySelector(s),out=$('#out');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let api=DEFAULT_API;try{api=localStorage.getItem('osint_api')||DEFAULT_API}catch(e){}
+let api=DEFAULT_API;try{api=localStorage.getItem('osint_api_v2')||DEFAULT_API}catch(e){}
 $('#api').value=api;
-$('#api').onchange=e=>{api=e.target.value.trim().replace(/\/$/,'');try{localStorage.setItem('osint_api',api)}catch(e){}};
+$('#api').onchange=e=>{api=e.target.value.trim().replace(/\/$/,'');try{localStorage.setItem('osint_api_v2',api)}catch(e){}};
 const L={bad:'Malicious',warn:'Suspicious',ok:'Clean',unknown:'No data',error:'Unavailable'};
 const cls=v=>({malicious:'bad',suspicious:'warn',clean:'ok',error:'error'}[v]||'unknown');
 function pivots(q,t){const e=encodeURIComponent(q),o='https://otx.alienvault.com/indicator/';
