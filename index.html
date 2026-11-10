@@ -2,24 +2,29 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OSINT Dashboard</title>
 <style>
-:root{--bg:#e9edf2;--card:#fff;--ink:#14213d;--mute:#5b6b7f;--line:#cfd7e1;--bad:#b3261e;--warn:#b7791f;--ok:#1f7a5a;--unk:#5b6b7f}
-@media(prefers-color-scheme:dark){:root{--bg:#10161f;--card:#1a2330;--ink:#e6ecf4;--mute:#93a3b8;--line:#2c3a4d;--bad:#ff7b72;--warn:#e3b341;--ok:#56d4a0;--unk:#93a3b8}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
-main{max-width:1000px;margin:0 auto;padding:32px 16px 64px}
-h1{font-size:1.5rem;margin:0 0 4px}.sub{color:var(--mute);margin:0 0 20px}
+:root{--bg:#e9edf2;--card:#fff;--ink:#14213d;--mute:#5b6b7f;--line:#cfd7e1;--bad:#b3261e;--warn:#b7791f;--ok:#1f7a5a;--unk:#8a97a8}
+@media(prefers-color-scheme:dark){:root{--bg:#10161f;--card:#1a2330;--ink:#e6ecf4;--mute:#93a3b8;--line:#2c3a4d;--bad:#ff7b72;--warn:#e3b341;--ok:#56d4a0;--unk:#6f7f93}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:1.5rem;margin:0 0 4px}.sub{color:var(--mute);margin:0 0 18px}
+h3{margin:28px 0 10px;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
 form{display:flex;gap:8px}input#q{flex:1;padding:14px;font:1.05rem ui-monospace,monospace;border:2px solid var(--ink);border-radius:6px;background:var(--card);color:var(--ink)}
 button{padding:0 22px;font:inherit;font-weight:600;background:var(--ink);color:var(--bg);border:0;border-radius:6px;cursor:pointer}
 :focus-visible{outline:3px solid var(--warn);outline-offset:2px}
 details{margin-top:10px;color:var(--mute);font-size:.9rem}details input{width:100%;padding:8px;margin-top:6px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
-#verdict{margin:28px 0 12px;padding:16px 18px;border-radius:6px;background:var(--card);border-left:8px solid var(--c)}
-#verdict b{font-size:1.4rem;color:var(--c)}#verdict span{color:var(--mute);margin-left:10px;font-family:ui-monospace,monospace;word-break:break-all}
-.pivots{display:flex;flex-wrap:wrap;gap:8px 16px;margin:0 0 20px;font-size:.9rem}a{color:var(--ink)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
-.card{background:var(--card);border-radius:6px;padding:14px 16px;border-left:6px solid var(--c,var(--unk))}
-.card h2{font-size:1rem;margin:0 0 8px;display:flex;justify-content:space-between;gap:8px}.card h2 em{font-style:normal;color:var(--c);font-weight:600}
-dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.9rem}dt{color:var(--mute)}dd{margin:0;word-break:break-word}
-.news li{margin:0 0 8px}.news small{color:var(--mute)}.news ul{margin:0;padding-left:18px}
-.bad{--c:var(--bad)}.warn{--c:var(--warn)}.ok{--c:var(--ok)}.unknown,.error{--c:var(--unk)}.err{color:var(--bad)}.note{color:var(--mute)}
+#verdict{margin:24px 0 12px;padding:16px 18px;border-radius:6px;background:var(--card);border-left:8px solid var(--c)}
+#verdict b{font-size:1.5rem;color:var(--c)}#verdict .q{display:block;font:1rem ui-monospace,monospace;word-break:break-all;margin-top:2px}#verdict small{color:var(--mute)}
+.chip{display:inline-block;padding:1px 8px;border-radius:99px;background:var(--ink);color:var(--bg);font-size:.75rem;text-transform:uppercase;margin-right:8px}
+.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:12px 0 4px;background:var(--line)}.bar i{display:block}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:0 0 6px}
+.tile{background:var(--card);border-radius:6px;padding:10px 14px}.tile small{display:block;color:var(--mute);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}.tile b{word-break:break-word}
+.pivots{display:flex;flex-wrap:wrap;gap:8px 16px;margin:14px 0 0;font-size:.9rem}a{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:12px}
+.card{background:var(--card);border-radius:6px;padding:14px 16px;border-top:4px solid var(--c)}
+.card h2{font-size:1rem;margin:0 0 8px;display:flex;justify-content:space-between;gap:8px}.card h2 em{font-style:normal;color:var(--c);font-weight:600;font-size:.85rem;white-space:nowrap}
+dl{margin:0;display:grid;grid-template-columns:minmax(90px,auto) 1fr;gap:3px 12px;font-size:.88rem}dt{color:var(--mute)}dd{margin:0;word-break:break-word}
+.card p{margin:8px 0 0;font-size:.88rem}.news li{margin:0 0 8px}.news small{color:var(--mute)}.news ul{margin:0;padding-left:18px}
+.malicious{--c:var(--bad)}.suspicious{--c:var(--warn)}.clean{--c:var(--ok)}.info,.none,.nokey,.error{--c:var(--unk)}.err{color:var(--bad)}.note{color:var(--mute)}
 </style></head><body><main>
 <h1>OSINT Dashboard</h1>
 <p class="sub">Paste an IP, domain, URL or file hash (MD5, SHA-1, SHA-256).</p>
@@ -34,21 +39,28 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 let api=DEFAULT_API;try{api=localStorage.getItem('osint_api_v2')||DEFAULT_API}catch(e){}
 $('#api').value=api;
 $('#api').onchange=e=>{api=e.target.value.trim().replace(/\/$/,'');try{localStorage.setItem('osint_api_v2',api)}catch(e){}};
-const L={bad:'Malicious',warn:'Suspicious',ok:'Clean',unknown:'No data',error:'Unavailable'};
-const cls=v=>({malicious:'bad',suspicious:'warn',clean:'ok',error:'error'}[v]||'unknown');
+const L={malicious:'Malicious',suspicious:'Suspicious',clean:'Clean',info:'Data found',none:'Nothing found',nokey:'Key needed',error:'Error'};
+const GROUPS=[['Reputation','Threat reputation'],['Registration','Domain registration'],['Network','Network, location & DNS'],['Certificates','TLS certificate']];
+const TILES=['IP address','Resolves to','Location','Network','Reverse DNS','Abuse score','Domain owner','Registrar','Registered','Expires','Domain age','Nameservers','Certificate','File type','Threat label'];
+const val=v=>v===true?'Yes':/^https?:\/\//.test(v)?`<a href="${esc(v)}" target="_blank" rel="noopener noreferrer">${esc(v.length>60?v.slice(0,57)+'…':v)}</a>`:esc(v);
 function pivots(q,t){const e=encodeURIComponent(q),o='https://otx.alienvault.com/indicator/';
- const m={ip:[['Shodan','https://www.shodan.io/host/'+e],['Censys','https://search.censys.io/hosts/'+e],['AlienVault OTX',o+'ip/'+e]],
- domain:[['urlscan','https://urlscan.io/search/#'+e],['AlienVault OTX',o+'domain/'+e],['crt.sh','https://crt.sh/?q='+e]],
- url:[['urlscan','https://urlscan.io/search/#'+e],['Google Safe Browsing','https://transparencyreport.google.com/safe-browsing/search?url='+e]],
- hash:[['AlienVault OTX',o+'file/'+e],['Hybrid Analysis','https://hybrid-analysis.com/search?query='+e]]}[t]||[];
+ const m={ip:[['Shodan','https://www.shodan.io/host/'+e],['Censys','https://search.censys.io/hosts/'+e],['GreyNoise','https://viz.greynoise.io/ip/'+e],['Talos','https://talosintelligence.com/reputation_center/lookup?search='+e]],
+ domain:[['urlscan','https://urlscan.io/search/#'+e],['crt.sh','https://crt.sh/?q='+e],['SecurityTrails','https://securitytrails.com/domain/'+e],['ViewDNS','https://viewdns.info/whois/?domain='+e]],
+ url:[['urlscan','https://urlscan.io/search/#'+e],['Safe Browsing','https://transparencyreport.google.com/safe-browsing/search?url='+e]],
+ hash:[['Hybrid Analysis','https://hybrid-analysis.com/search?query='+e],['Any.run','https://app.any.run/submissions/#filehash:'+e]]}[t]||[];
  return m.map(([n,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${n}</a>`).join('')}
+const card=r=>{const rows=Object.entries(r.summary).map(([a,b])=>`<dt>${esc(a)}</dt><dd>${val(b)}</dd>`).join('');
+ const body=rows?`<dl>${rows}</dl>`:`<p class="note">${r.verdict==='nokey'?'API key not configured for this source.':r.verdict==='error'?'Source error: '+esc(r.error):'Nothing found for this indicator.'}</p>`;
+ return `<section class="card ${r.verdict}"><h2><span>${esc(r.source)}</span><em>${L[r.verdict]}</em></h2>${body}${r.link?`<p><a href="${esc(r.link)}" target="_blank" rel="noopener noreferrer">Open source</a></p>`:''}</section>`};
 function render(d){
- const rs=d.results,has=v=>rs.some(r=>r.verdict===v);
- const k=has('malicious')?'bad':has('suspicious')?'warn':has('clean')?'ok':'unknown';
- const cards=rs.map(r=>{const c=cls(r.verdict),rows=Object.entries(r.summary||{}).filter(([,v])=>v!==''&&v!=null).map(([a,b])=>`<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join('');
-  return `<section class="card ${c}"><h2><span>${esc(r.source)}</span><em>${L[c]}</em></h2><dl>${rows}</dl>${r.link?`<p><a href="${esc(r.link)}" target="_blank" rel="noopener noreferrer">Open source</a></p>`:''}</section>`}).join('');
- const news=(d.news||[]).length?`<section class="card news"><h2>Related news</h2><ul>${d.news.map(n=>`<li><a href="${esc(n.link)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a><br><small>${esc(n.date)}</small></li>`).join('')}</ul></section>`:'';
- out.innerHTML=`<div id="verdict" class="${k}"><b>${k==='bad'?'Likely malicious':k==='warn'?'Suspicious':k==='ok'?'No detections':'No data'}</b><span>${esc(d.type)}: ${esc(d.query)}</span></div><div class="pivots">${pivots(d.query,d.type)}</div><div class="grid">${cards}${news}</div>`}
+ const rs=d.results,has=x=>rs.some(r=>r.verdict===x),k=has('malicious')?'malicious':has('suspicious')?'suspicious':has('clean')?'clean':'none';
+ const flag=rs.filter(r=>/malicious|suspicious/.test(r.verdict)).length,chk=rs.filter(r=>/malicious|suspicious|clean/.test(r.verdict)).length;
+ const s=d.stats,tot=s?s.malicious+s.suspicious+s.harmless+s.undetected:0;
+ const bar=tot?`<div class="bar">${[['malicious','bad'],['suspicious','warn'],['harmless','ok'],['undetected','unk']].map(([n,c])=>`<i style="flex:${s[n]};background:var(--${c})" title="${n}: ${s[n]}"></i>`).join('')}</div><small>VirusTotal engines: ${s.malicious} malicious, ${s.suspicious} suspicious, ${s.harmless} harmless, ${s.undetected} undetected</small>`:'';
+ const tiles=TILES.filter(t=>d.overview[t]).map(t=>`<div class="tile"><small>${t}</small><b>${esc(d.overview[t])}</b></div>`).join('');
+ const sec=GROUPS.map(([g,t])=>{const c=rs.filter(r=>r.group===g);return c.length?`<h3>${t}</h3><div class="grid">${c.map(card).join('')}</div>`:''}).join('');
+ const news=`<h3>Related news</h3><section class="card news ${d.news.length?'info':'none'}">${d.news.length?`<ul>${d.news.map(n=>`<li><a href="${esc(n.link)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a><br><small>${esc(n.date)}</small></li>`).join('')}</ul>`:'<p class="note">No related news found.</p>'}</section>`;
+ out.innerHTML=`<div id="verdict" class="${k}"><b>${{malicious:'Likely malicious',suspicious:'Suspicious',clean:'No threats detected',none:'No data'}[k]}</b> <small>${flag} of ${chk} reputation sources flag this · ${rs.length} sources checked</small><span class="q"><span class="chip">${esc(d.type)}</span>${esc(d.query)}</span>${bar}</div>${tiles?`<h3>Overview</h3><div class="tiles">${tiles}</div>`:''}<div class="pivots">${pivots(d.query,d.type)}</div>${sec}${news}`}
 $('#f').onsubmit=async e=>{e.preventDefault();const q=$('#q').value.trim();if(!q)return;
  out.innerHTML='<p class="note">Checking sources…</p>';
  try{const r=await fetch(`${api}/lookup?q=${encodeURIComponent(q)}`),d=await r.json();if(!r.ok)throw new Error(d.error||r.status);render(d)}
